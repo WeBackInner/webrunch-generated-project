@@ -1,6 +1,8 @@
 const gameArea = document.querySelector('.game-area');
 const scoreDisplay = document.getElementById('score');
 const levelDisplay = document.getElementById('level');
+const themeCheckbox = document.getElementById('theme-checkbox');
+const body = document.body;
 let score = 0;
 let level = 1;
 let monsterInterval = 1200; // Initial interval
@@ -38,4 +40,17 @@ function levelUp() {
     monsterSpawner = setInterval(createMonster, monsterInterval); // Set new interval
 }
 
+function toggleTheme(event) {
+    body.classList.toggle('dark-mode');
+}
+
+themeCheckbox.addEventListener('change', toggleTheme);
+
 let monsterSpawner = setInterval(createMonster, monsterInterval);
+
+
+// Set initial theme based on user preference (optional - can be expanded with localStorage)
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    themeCheckbox.checked = true;
+    body.classList.add('dark-mode');
+}

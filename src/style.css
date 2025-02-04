@@ -1,53 +1,152 @@
+/* Existing CSS remains the same, only toggle switch styles are added/updated */
+
+:root {
+    --bg-color: #f5f5f5;
+    --container-bg: #e0cda9;
+    --title-color: #8d5524;
+    --status-color: #5e3a1d;
+    --game-area-border: #a37354;
+    --game-area-bg: #d8b4a0;
+    --monster-color: #e74c3c;
+    --monster-hover-color: #c0392b;
+    --text-shadow: rgba(255,255,255,0.5);
+    /* Toggle switch colors */
+    --toggle-bg: #ccc;
+    --toggle-thumb: white;
+    --toggle-active-bg: #6c5b7b;
+}
+
+.dark-mode {
+    --bg-color: #333;
+    --container-bg: #444;
+    --title-color: #eee;
+    --status-color: #ddd;
+    --game-area-border: #777;
+    --game-area-bg: #555;
+    --monster-color: #ff6f61;
+    --monster-hover-color: #ff4030;
+    --text-shadow: rgba(0,0,0,0.5);
+    /* Dark mode toggle switch colors */
+    --toggle-bg: #777;
+    --toggle-thumb: #ddd;
+    --toggle-active-bg: #a892ba;
+}
+
 body {
-    background-color: #f5f5f5;
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    transition: background-color 0.3s ease;
 }
 
 .game-container {
     font-family: 'Arial', sans-serif;
     text-align: center;
-    background-color: #e0cda9; /* Light brown background */
+    background-color: var(--container-bg);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
 }
 
 h1 {
-    color: #8d5524; /* Dark brown title */
+    color: var(--title-color);
     margin-bottom: 20px;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    text-shadow: 2px 2px 3px var(--text-shadow);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .status-bar {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    color: #5e3a1d; /* Slightly darker brown for status */
+    color: var(--status-color);
+    transition: color 0.3s ease;
+    align-items: center; /* Align items vertically in status bar */
 }
 
 .score, .level {
     font-size: 1.1em;
 }
 
+/* Toggle Switch Styles */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--toggle-thumb);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--toggle-active-bg);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--toggle-active-bg);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
 .game-area {
     width: 400px;
     height: 400px;
-    border: 5px solid #a37354; /* Medium brown border */
+    border: 5px solid var(--game-area-border);
     border-radius: 10px;
     position: relative;
     margin: 20px auto;
-    background-color: #d8b4a0; /* Muted brown game area */
-    overflow: hidden; /* Clip monsters inside */
+    background-color: var(--game-area-bg);
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .monster {
     width: 50px;
     height: 50px;
-    background-color: #e74c3c; /* Red monster */
+    background-color: var(--monster-color);
     position: absolute;
     cursor: pointer;
     border-radius: 5px;
@@ -55,7 +154,7 @@ h1 {
 }
 
 .monster:hover {
-    background-color: #c0392b; /* Darker red on hover */
+    background-color: var(--monster-hover-color);
 }
 
 .monster.killed {
